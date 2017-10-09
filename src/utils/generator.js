@@ -38,6 +38,9 @@ function simulate(board) {
 }
 
 function doSimulationStep(board) {
+
+let newBoard = JSON.parse(JSON.stringify(board));
+
   for (var i = 0; i < config.height; i++) {
     for (var j = 0; j < config.width; j++) {
 

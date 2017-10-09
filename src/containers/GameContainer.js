@@ -3,32 +3,17 @@ import EventListener from 'react-event-listener';
 import Game from '../components/Game';
 import {generate} from '../utils/generator';
 import {flood} from '../utils/flood';
+import config from '../config.json';
 
 class GameContainer extends Component {
 
   constructor() {
     super();
-
     this.redraw = this.redraw.bind(this);
-
-    const height = 75;
-    const width = 150;
-    const probability = 0.45;
-    const steps = 3;
-    const birthLimit = 4;
-    const deathLimit = 3;
-    this.state = {
-      height,
-      width,
-      probability,
-      steps,
-      birthLimit,
-      deathLimit
-    }
   }
 
   componentDidMount() {
-    const board = generate(this.state.width, this.state.height, this.state.probability, this.state.steps, this.state.birthLimit, this.state.deathLimit);
+    const board = generate();
     this.setState({
       "board": board
     }, this.redraw);
@@ -39,8 +24,8 @@ class GameContainer extends Component {
     if (canvas.getContext) {
       var ctx = canvas.getContext('2d');
 
-      for (var i = 0; i < this.state.height; i++) {
-        for (var j = 0; j < this.state.width; j++) {
+      for (var i = 0; i < config.height; i++) {
+        for (var j = 0; j < config.width; j++) {
           let cell = this.state.board[i][j];
           if (cell === 0) {
             ctx.fillStyle = 'rgb(0, 0, 0)';
@@ -61,8 +46,8 @@ class GameContainer extends Component {
     return (
       <div>
         <Game
-          height={this.state.height}
-          width={this.state.width}/>
+          height={config.height}
+          width={config.width}/>
       </div>
     );
   }

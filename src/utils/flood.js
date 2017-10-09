@@ -1,7 +1,7 @@
 import config from '../config.json';
 
 function floodCave(board, x, y, color) {
-  if (x < 0 || x >= config.config.height || y < 0 || y >= config.width) {
+  if (x < 0 || x >= config.height || y < 0 || y >= config.width) {
     return 0;
   }
 
