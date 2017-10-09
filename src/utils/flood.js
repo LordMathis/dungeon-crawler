@@ -56,5 +56,4 @@ export function flood(board, width, height) {
 
 
   return board;
-
 }
