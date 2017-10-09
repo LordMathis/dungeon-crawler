@@ -1,25 +1,25 @@
 import {flood} from './flood';
 import config from '../config.json';
 
-export function generate(width, height, probability, steps, birthLimit, deathLimit) {
+export function generate() {
 
   let board = null;
 
   while (!board) {
-    board = generateInitial([], width, height, probability);
-    board = simulate(board, width, height, steps, birthLimit, deathLimit);
-    board = flood(board, width, height);
+    board = generateInitial([]);
+    board = simulate(board);
+    board = flood(board);
   }
 
   return board;
 }
 
-function generateInitial(board, width, height, probability) {
+function generateInitial(board) {
 
-  for (let i = 0; i < height; i++) {
+  for (let i = 0; i < config.height; i++) {
       const row = [];
-      for (let j = 0; j < width; j++) {
-          const cell = Math.random() < probability ? 1 : 0;
+      for (let j = 0; j < config.width; j++) {
+          const cell = Math.random() < config.probability ? 1 : 0;
           row.push(cell);
       }
       board.push(row);
@@ -28,29 +28,29 @@ function generateInitial(board, width, height, probability) {
   return board;
 }
 
-function simulate(board, width, height, steps, birthLimit, deathLimit) {
+function simulate(board) {
+  let steps = config.steps
   while (steps > 0) {
-    board = doSimulationStep(board, width, height, birthLimit, deathLimit);
+    board = doSimulationStep(board);
     steps--;
   }
   return board;
 }
 
-function doSimulationStep(board, width, height, birthLimit, deathLimit) {
-  let newBoard = JSON.parse(JSON.stringify(board));
-  for (var i = 0; i < height; i++) {
-    for (var j = 0; j < width; j++) {
+function doSimulationStep(board) {
+  for (var i = 0; i < config.height; i++) {
+    for (var j = 0; j < config.width; j++) {
 
-      const neighbours = countNeighbours(board, i, j, width, height)
+      const neighbours = countNeighbours(board, i, j)
 
       if (board[i][j] === 1) {
-        if (neighbours < deathLimit) {
+        if (neighbours < config.deathLimit) {
           newBoard[i][j] = 0;
         } else {
           newBoard[i][j] = 1;
         }
       } else {
-        if (neighbours > birthLimit) {
+        if (neighbours > config.birthLimit) {
           newBoard[i][j] = 1;
         } else {
           newBoard[i][j] = 0;
@@ -62,15 +62,15 @@ function doSimulationStep(board, width, height, birthLimit, deathLimit) {
   return newBoard;
 }
 
-function checkCell(board, x, y, width, height) {
-  if ((x >= height) || (x < 0) || (y >= width) || (y < 0)) {
+function checkCell(board, x, y) {
+  if ((x >= config.height) || (x < 0) || (y >= config.width) || (y < 0)) {
     return 0;
   } else {
     return board[x][y];
   }
 }
 
-function countNeighbours(board, i, j, width, height) {
+function countNeighbours(board, i, j) {
   let neighbours = 0;
   let x, y;
 
@@ -79,7 +79,7 @@ function countNeighbours(board, i, j, width, height) {
     y = j - 1;
     for (var l = 0; l < 3; l++) {
       if ((x !== i) || (y !== j)) {
-        neighbours += checkCell(board, x, y, width, height);
+        neighbours += checkCell(board, x, y);
       }
       y = y + 1;
     }
