@@ -12,14 +12,15 @@ export function placeTreasures(board) {
 
 function placeThing(board, count, thingId) {
   while (count > 0) {
-    while (true)
-    let x = Math.floor(Math.random() * config.height);
-    let y = Math.floor(Math.random() * config.width);
+    while (true) {
+      let x = Math.floor(Math.random() * config.height);
+      let y = Math.floor(Math.random() * config.width);
 
-    if (board[x][y] === 1) {
-      board[x][y] = thingId;
-      count--;
-      break;
+      if (board[x][y] === 1) {
+        board[x][y] = thingId;
+        count--;
+        break;
+      }
     }
   }
 }

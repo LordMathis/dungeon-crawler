@@ -1,4 +1,5 @@
 import {flood} from './flood';
+import {placeTreasures} from './treasures';
 import config from '../config.json';
 
 export function generate() {
@@ -10,6 +11,8 @@ export function generate() {
     board = simulate(board);
     board = flood(board);
   }
+
+  placeTreasures(board);
 
   return board;
 }

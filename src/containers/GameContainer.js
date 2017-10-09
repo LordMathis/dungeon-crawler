@@ -27,16 +27,36 @@ class GameContainer extends Component {
       for (var i = 0; i < config.height; i++) {
         for (var j = 0; j < config.width; j++) {
           let cell = this.state.board[i][j];
-          if (cell === 0) {
-            ctx.fillStyle = 'rgb(0, 0, 0)';
-            ctx.fillRect(j*10, i*10, 10, 10);
-          } else if (cell === 1){
-            ctx.fillStyle = 'rgb(48,113,169)';
-            ctx.fillRect(j*10, i*10, 10, 10);
-          } else {
-            ctx.fillStyle = 'rgb(0,128,0)';
-            ctx.fillRect(j*10, i*10, 10, 10);
+
+          switch(cell) {
+            case 0:
+              ctx.fillStyle = 'rgb(0, 0, 0)';
+              break;
+            case 1:
+              ctx.fillStyle = 'rgb(179, 209, 255)';
+              break;
+            case 2:
+              ctx.fillStyle = 'rgb(225, 225, 234)';
+              break;
+            case 3:
+              ctx.fillStyle = 'rgb(230, 230, 0)';
+              break;
+            case 4:
+              ctx.fillStyle = 'rgb(0, 153, 0)';
+              break;
+            case 5:
+              ctx.fillStyle = 'rgb(51, 102, 255)';
+              break;
+            case 6:
+              ctx.fillStyle = 'rgb(255, 0, 0)';
+              break;
+            case 7:
+              ctx.fillStyle = 'rgb(102, 0, 255)';
+              break;
+
           }
+
+          ctx.fillRect(j*10, i*10, 10, 10);
         }
       }
     }
