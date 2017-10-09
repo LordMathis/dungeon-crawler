@@ -20,5 +20,8 @@
   "enemies": {
     "id": 6,
     "count": 25
+  },
+  "gate": {
+    "id": 7
   }
 }

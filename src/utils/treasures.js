@@ -1,11 +1,12 @@
 import config from '../config.json';
 
 export function placeTreasures(board) {
-  placeThing(board, config.config.width, config.height, keyCount, 2);
-  placeThing(board, config.width, config.height, hpCount, 3);
-  placeThing(board, config.width, config.height, weaponCount, 4);
-  placeThing(board, config.width, config.height, enemyCount, 5);
-  placeThing(board, config.width, config.height, 1, 6);
+  placeThing(board, config.keys.count, config.keys.id);
+  placeThing(board, config.hp.count, config.hp.id);
+  placeThing(board, config.weapons.count, config.weapons.id);
+  placeThing(board, config.enemies.count, config.enemies.id);
+  placeThing(board, 1, config.gate.id);
+  placeThing(board, 1, 2);
 
 }
 
