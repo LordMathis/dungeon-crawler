@@ -10,7 +10,6 @@ class GameContainer extends Component {
     super();
 
     this.redraw = this.redraw.bind(this);
-    this.floodFill = this.floodFill.bind(this);
 
     const height = 75;
     const width = 150;
@@ -26,13 +25,6 @@ class GameContainer extends Component {
       birthLimit,
       deathLimit
     }
-  }
-
-  floodFill() {
-    const board = flood(this.state.board, this.state.width, this.state.height);
-    this.setState({
-      board
-    }, this.redraw);
   }
 
   componentDidMount() {
@@ -71,9 +63,6 @@ class GameContainer extends Component {
         <Game
           height={this.state.height}
           width={this.state.width}/>
-        <button onClick={this.floodFill}>
-          Flood
-        </button>
       </div>
     );
   }

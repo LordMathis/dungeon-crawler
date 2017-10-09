@@ -1,0 +1,24 @@
+{
+  "probability": 0.45,
+  "steps": 3,
+  "birthLimit": 4,
+  "deathLimit": 3,
+  "width": 150,
+  "height": 75,
+  "keys": {
+    "id": 3,
+    "count": 5
+  },
+  "hp": {
+    "id": 4,
+    "count": 100
+  },
+  "weapons": {
+    "id": 5,
+    "count": 15
+  },
+  "enemies": {
+    "id": 6,
+    "count": 25
+  }
+}

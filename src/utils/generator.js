@@ -1,3 +1,19 @@
+import {flood} from './flood';
+import config from '../config.json';
+
+export function generate(width, height, probability, steps, birthLimit, deathLimit) {
+
+  let board = null;
+
+  while (!board) {
+    board = generateInitial([], width, height, probability);
+    board = simulate(board, width, height, steps, birthLimit, deathLimit);
+    board = flood(board, width, height);
+  }
+
+  return board;
+}
+
 function generateInitial(board, width, height, probability) {
 
   for (let i = 0; i < height; i++) {
@@ -71,10 +87,4 @@ function countNeighbours(board, i, j, width, height) {
   }
 
   return neighbours;
-}
-
-export function generate(width, height, probability, steps, birthLimit, deathLimit) {
-  let board = generateInitial([], width, height, probability);
-  board = simulate(board, width, height, steps, birthLimit, deathLimit);
-  return board;
 }
