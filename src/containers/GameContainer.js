@@ -10,12 +10,25 @@ class GameContainer extends Component {
   constructor() {
     super();
     this.redraw = this.redraw.bind(this);
+
+    let hp = 100;
+    let xp = 0;
+    let damage = 10;
+    let keys = 0;
+
+    this.state = {
+      hp,
+      xp,
+      damage,
+      keys
+    }
   }
 
   componentDidMount() {
+
     const board = generate();
     this.setState({
-      "board": board
+      board,
     }, this.redraw);
   }
 
@@ -67,7 +80,11 @@ class GameContainer extends Component {
       <div>
         <Game
           height={config.height}
-          width={config.width}/>
+          width={config.width}
+          hp={this.state.hp}
+          xp={this.state.xp}
+          damage={this.state.damage}
+          keys={this.state.keys}/>
       </div>
     );
   }
