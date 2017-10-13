@@ -26,10 +26,8 @@ class GameContainer extends Component {
 
   componentDidMount() {
 
-    const board = generate();
-    this.setState({
-      board,
-    }, this.redraw);
+    const generated = generate();
+    this.setState(generated, this.redraw);
   }
 
   redraw() {

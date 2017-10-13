@@ -5,6 +5,7 @@
   "deathLimit": 3,
   "width": 150,
   "height": 75,
+  "ratio": 0.4,
   "keys": {
     "id": 3,
     "count": 5
