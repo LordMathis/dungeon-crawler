@@ -12,23 +12,23 @@
   },
   "hp": {
     "id": 4,
-    "count": 50
+    "count": 35
   },
   "weapons": {
     "id": 5,
-    "count": 10
+    "count": 4
   },
   "enemies_strong": {
     "id": 24,
-    "count": 5
+    "count": 6
   },
   "enemies_medium": {
     "id": 19,
-    "count": 10
+    "count": 12
   },
   "enemies_weak": {
     "id": 14,
-    "count": 10
+    "count": 15
   },
   "gate": {
     "id": 7

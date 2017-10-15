@@ -11,6 +11,7 @@ class GameContainer extends Component {
 
     this.redraw = this.redraw.bind(this);
     this.handleMove = this.handleMove.bind(this);
+    this.handleAttack = this.handleAttack.bind(this);
 
     let hp = 100;
     let xp = 0;
@@ -26,10 +27,48 @@ class GameContainer extends Component {
   }
 
   componentDidMount() {
-
     const generated = generate();
     this.setState(generated, this.redraw);
     document.addEventListener('keydown', this.handleMove);
+  }
+
+  handleAttack(x, y) {
+    let board = this.state.board.slice();
+    let cell = board[x][y];
+
+    let hpLoss;
+    if (cell < 10 || cell > 25) {
+      return;
+    } else if (cell < 15) {
+      hpLoss = 10;
+    } else if (cell < 20) {
+      hpLoss = 15;
+    } else {
+      hpLoss = 20;
+    }
+
+    board[x][y] -= Math.floor(this.state.damage / 10);
+
+    let xpGain = 0;
+
+    if ((cell >= 20 && board[x][y] < 20) || (cell >= 15 && board[x][y] < 15)) {
+      xpGain = 10;
+    }
+
+    if (board[x][y] <= 10) {
+      xpGain = 10;
+      board[x][y] = 1;
+    }
+
+    let newState = {
+      hp: this.state.hp - hpLoss,
+      xp: this.state.xp + xpGain,
+      board
+    };
+
+    console.log(JSON.stringify(newState));
+
+    this.setState(newState, this.redraw);
   }
 
   handleMove(event) {
@@ -100,61 +139,17 @@ class GameContainer extends Component {
           board
         };
         break;
-      case 10:
-        board[playerX][playerY] = 1;
-        newState = {
-          player: {
-            x: playerX,
-            y: playerY
-          },
-          xp: this.state.xp + 5,
-          board
-        };
-        break;
-      case 11:
-      case 12:
-      case 13:
-      case 14:
-        board[playerX][playerY] -= Math.floor(this.state.damage / 10);
-        newState = {
-          hp: this.state.hp - 5,
-          board
-        };
-        break;
-      case 15:
-      case 16:
-      case 17:
-      case 18:
-      case 19:
-        board[playerX][playerY] -= Math.floor(this.state.damage / 10);
-        newState = {
-          hp: this.state.hp - 10,
-          board
-        };
-        break;
-      case 20:
-      case 21:
-      case 22:
-      case 23:
-      case 24:
-        board[playerX][playerY] -= Math.floor(this.state.damage / 10);
-        newState = {
-          hp: this.state.hp - 15,
-          board
-        };
+      case 7:
         break;
       default:
-        newState = {
-          player: {
-            x: playerX,
-            y: playerY
-          }
-        };
+        this.handleAttack(playerX, playerY);
         break;
 
     }
 
-    this.setState(newState, this.redraw);
+    if (newState) {
+      this.setState(newState, this.redraw);
+    }
 
   }
 
