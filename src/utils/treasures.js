@@ -7,7 +7,12 @@ export function placeTreasures(board) {
   placeThing(board, config.keys.count, config.keys.id); // Place keys
   placeThing(board, config.hp.count, config.hp.id); // Place healthpacks
   placeThing(board, config.weapons.count, config.weapons.id); // Place weapons
-  placeThing(board, config.enemies.count, config.enemies.id); // Place enemies
+
+  placeThing(board, config.enemies_strong.count, config.enemies_strong.id); // Place enemies
+  placeThing(board, config.enemies_medium.count, config.enemies_medium.id); // Place enemies
+  placeThing(board, config.enemies_weak.count, config.enemies_weak.id); // Place enemies
+
+
   placeThing(board, 1, config.gate.id); // Place finish
   let player = placePlayer(board); // Place player starting position
 

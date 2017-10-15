@@ -52,14 +52,67 @@ class GameContainer extends Component {
         break;
     }
 
-    console.log(JSON.stringify(this.state.player));
+    const cell = this.state.board[playerX][playerY];
+    let newState;
+    let board = this.state.board.slice();
 
-    this.setState({
-      player: {
-        x: playerX,
-        y: playerY
-      }
-    }, this.redraw);
+    switch(cell) {
+      case 0:
+        break;
+      case 1:
+        newState = {
+          player: {
+            x: playerX,
+            y: playerY
+          }
+        };
+        break;
+      case 3:
+        board[playerX][playerY] = 1;
+        newState = {
+          player: {
+            x: playerX,
+            y: playerY
+          },
+          keys: this.state.keys + 1,
+          board
+        };
+        break;
+      case 4:
+        board[playerX][playerY] = 1;
+        newState = {
+          player: {
+            x: playerX,
+            y: playerY
+          },
+          hp: this.state.hp + 25,
+          board
+        };
+        break;
+      case 5:
+        board[playerX][playerY] = 1;
+        newState = {
+          player: {
+            x: playerX,
+            y: playerY
+          },
+          damage: this.state.damage + 10,
+          board
+        };
+        break;
+      case 6:
+      default:
+        newState = {
+          player: {
+            x: playerX,
+            y: playerY
+          }
+        };
+        break;
+
+    }
+
+    this.setState(newState, this.redraw);
 
   }
 
@@ -96,7 +149,25 @@ class GameContainer extends Component {
             case 5:
               ctx.fillStyle = 'rgb(51, 102, 255)';
               break;
-            case 6:
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+            case 14:
+              ctx.fillStyle = 'rgb(255, 153, 153)';
+              break;
+            case 15:
+            case 16:
+            case 17:
+            case 18:
+            case 19:
+              ctx.fillStyle = 'rgb(255, 77, 77)';
+              break;
+            case 20:
+            case 21:
+            case 22:
+            case 23:
+            case 24:
               ctx.fillStyle = 'rgb(255, 0, 0)';
               break;
             case 7:

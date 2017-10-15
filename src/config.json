@@ -18,9 +18,17 @@
     "id": 5,
     "count": 10
   },
-  "enemies": {
-    "id": 6,
-    "count": 25
+  "enemies_strong": {
+    "id": 24,
+    "count": 5
+  },
+  "enemies_medium": {
+    "id": 19,
+    "count": 10
+  },
+  "enemies_weak": {
+    "id": 14,
+    "count": 10
   },
   "gate": {
     "id": 7
