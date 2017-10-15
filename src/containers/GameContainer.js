@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 import Game from '../components/Game';
 import {generate} from '../utils/generator';
 import {flood} from '../utils/flood';
@@ -12,17 +13,20 @@ class GameContainer extends Component {
     this.redraw = this.redraw.bind(this);
     this.handleMove = this.handleMove.bind(this);
     this.handleAttack = this.handleAttack.bind(this);
+    this.handleRestart = this.handleRestart.bind(this);
 
     let hp = 100;
     let xp = 0;
     let damage = 10;
     let keys = 0;
+    let showModal = false;
 
     this.state = {
       hp,
       xp,
       damage,
-      keys
+      keys,
+      showModal
     }
   }
 
@@ -30,6 +34,17 @@ class GameContainer extends Component {
     const generated = generate();
     this.setState(generated, this.redraw);
     document.addEventListener('keydown', this.handleMove);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleMove);
+  }
+
+  gameOver(result) {
+    this.setState({
+      victory: result,
+      showModal: true,
+    });
   }
 
   handleAttack(x, y) {
@@ -66,7 +81,9 @@ class GameContainer extends Component {
       board
     };
 
-    console.log(JSON.stringify(newState));
+    if (newState.hp < 0) {
+      this.gameOver(false);
+    }
 
     this.setState(newState, this.redraw);
   }
@@ -140,6 +157,10 @@ class GameContainer extends Component {
         };
         break;
       case 7:
+        if (this.state.keys === 5 && this.state.xp > 500) {
+          this.gameOver(true);
+          break;
+        }
         break;
       default:
         this.handleAttack(playerX, playerY);
@@ -150,10 +171,23 @@ class GameContainer extends Component {
     if (newState) {
       this.setState(newState, this.redraw);
     }
+  }
 
+  handleRestart() {
+
+    const generated = generate();
+
+    generated.hp = 100;
+    generated.xp = 0;
+    generated.damage = 10;
+    generated.keys = 0;
+    generated.showModal = false;
+
+    this.setState(generated, this.redraw);
   }
 
   redraw() {
+
     var canvas = document.getElementById('canvas');
     if (canvas.getContext) {
       var ctx = canvas.getContext('2d');
@@ -174,8 +208,7 @@ class GameContainer extends Component {
               ctx.fillStyle = 'rgb(179, 209, 255)';
               break;
             case 2:
-              //ctx.fillStyle = 'rgb(225, 225, 234)';
-              ctx.fillStyle = 'rgb(66, 244, 72)';
+              ctx.fillStyle = 'rgb(128,128,128)';
               break;
             case 3:
               ctx.fillStyle = 'rgb(230, 230, 0)';
@@ -229,6 +262,19 @@ class GameContainer extends Component {
           xp={this.state.xp}
           damage={this.state.damage}
           keys={this.state.keys}/>
+        {
+          this.state.showModal &&
+          <ModalContainer>
+            <ModalDialog>
+              <h1>{this.state.victory ? "You won!" : "You lost!" }</h1>
+              <p>
+                <button onClick={this.handleRestart}>
+                  Play again?
+                </button>
+              </p>
+            </ModalDialog>
+          </ModalContainer>
+        }
       </div>
     );
   }
