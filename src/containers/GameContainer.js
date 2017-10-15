@@ -100,7 +100,49 @@ class GameContainer extends Component {
           board
         };
         break;
-      case 6:
+      case 10:
+        board[playerX][playerY] = 1;
+        newState = {
+          player: {
+            x: playerX,
+            y: playerY
+          },
+          xp: this.state.xp + 5,
+          board
+        };
+        break;
+      case 11:
+      case 12:
+      case 13:
+      case 14:
+        board[playerX][playerY] -= Math.floor(this.state.damage / 10);
+        newState = {
+          hp: this.state.hp - 5,
+          board
+        };
+        break;
+      case 15:
+      case 16:
+      case 17:
+      case 18:
+      case 19:
+        board[playerX][playerY] -= Math.floor(this.state.damage / 10);
+        newState = {
+          hp: this.state.hp - 10,
+          board
+        };
+        break;
+      case 20:
+      case 21:
+      case 22:
+      case 23:
+      case 24:
+        board[playerX][playerY] -= Math.floor(this.state.damage / 10);
+        newState = {
+          hp: this.state.hp - 15,
+          board
+        };
+        break;
       default:
         newState = {
           player: {
