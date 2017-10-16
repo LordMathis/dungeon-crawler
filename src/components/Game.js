@@ -10,7 +10,9 @@ const Game = (props) => (
       hp={props.hp}
       xp={props.xp}
       damage={props.damage}
-      keys={props.keys}/>
+      keys={props.keys}
+      lights={props.lights}
+      onLightsToggle={props.onLightsToggle}/>
     <Canvas
       height={props.height}
       width={props.width}/>
@@ -24,6 +26,8 @@ Game.propTypes = {
   xp: PropTypes.number.isRequired,
   damage: PropTypes.number.isRequired,
   keys: PropTypes.number.isRequired,
+  lights: PropTypes.bool.isRequired,
+  onLightsToggle: PropTypes.func.isRequired,
 }
 
 export default Game;

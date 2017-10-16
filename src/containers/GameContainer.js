@@ -5,6 +5,15 @@ import {generate} from '../utils/generator';
 import {flood} from '../utils/flood';
 import config from '../config.json';
 
+const initialState = {
+  hp: 100,
+  xp: 0,
+  damage: 10,
+  keys: 0,
+  showModal: false,
+  lights: false
+};
+
 class GameContainer extends Component {
 
   constructor() {
@@ -14,20 +23,9 @@ class GameContainer extends Component {
     this.handleMove = this.handleMove.bind(this);
     this.handleAttack = this.handleAttack.bind(this);
     this.handleRestart = this.handleRestart.bind(this);
+    this.handleLightsToggle = this.handleLightsToggle.bind(this);
 
-    let hp = 100;
-    let xp = 0;
-    let damage = 10;
-    let keys = 0;
-    let showModal = false;
-
-    this.state = {
-      hp,
-      xp,
-      damage,
-      keys,
-      showModal
-    }
+    this.state = initialState;
   }
 
   componentDidMount() {
@@ -157,7 +155,7 @@ class GameContainer extends Component {
         };
         break;
       case 7:
-        if (this.state.keys === 5 && this.state.xp > 500) {
+        if (this.state.keys === 5 && this.state.xp >= 500) {
           this.gameOver(true);
           break;
         }
@@ -177,13 +175,14 @@ class GameContainer extends Component {
 
     const generated = generate();
 
-    generated.hp = 100;
-    generated.xp = 0;
-    generated.damage = 10;
-    generated.keys = 0;
-    generated.showModal = false;
-
+    this.setState(initialState);
     this.setState(generated, this.redraw);
+  }
+
+  handleLightsToggle(event) {
+    this.setState({
+      lights: !this.state.lights,
+    }, this.redraw);
   }
 
   redraw() {
@@ -198,6 +197,15 @@ class GameContainer extends Component {
 
           if((i === this.state.player.x) && (j === this.state.player.y)) {
             cell = 2;
+          }
+
+          if (!this.state.lights) {
+            let distX = Math.abs(this.state.player.x - i);
+            let distY = Math.abs(this.state.player.y - j);
+            let radius = 8;
+            if (distX*distX + distY*distY > radius*radius) {
+              cell = 0;
+            }
           }
 
           switch(cell) {
@@ -243,7 +251,6 @@ class GameContainer extends Component {
             case 7:
               ctx.fillStyle = 'rgb(102, 0, 255)';
               break;
-
           }
 
           ctx.fillRect(j*10, i*10, 10, 10);
@@ -261,7 +268,9 @@ class GameContainer extends Component {
           hp={this.state.hp}
           xp={this.state.xp}
           damage={this.state.damage}
-          keys={this.state.keys}/>
+          keys={this.state.keys}
+          lights={this.state.lights}
+          onLightsToggle={this.handleLightsToggle}/>
         {
           this.state.showModal &&
           <ModalContainer>

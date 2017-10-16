@@ -16,6 +16,9 @@ const Settings = (props) => (
     <div>
       Keys: {props.keys}/5
     </div>
+    <div onClick={props.onLightsToggle}>
+      Lights: {props.ligths ? "on" : "off"}
+    </div>
   </div>
 )
 
@@ -24,6 +27,8 @@ Settings.propTypes = {
   xp: PropTypes.number.isRequired,
   damage: PropTypes.number.isRequired,
   keys: PropTypes.number.isRequired,
+  lights: PropTypes.bool.isRequired,
+  onLightsToggle: PropTypes.func.isRequired,
 }
 
 export default Settings;
