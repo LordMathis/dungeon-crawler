@@ -17,7 +17,7 @@ const Settings = (props) => (
       Keys: {props.keys}/5
     </div>
     <div onClick={props.onLightsToggle}>
-      Lights: {props.ligths ? "on" : "off"}
+      Toggle lights
     </div>
   </div>
 )

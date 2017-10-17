@@ -106,6 +106,10 @@ class GameContainer extends Component {
         break;
     }
 
+    if (playerX < 0 || playerX >= config.height || playerY < 0 || playerY >= config.width) {
+      return;
+    }
+
     const cell = this.state.board[playerX][playerY];
     let newState;
     let board = this.state.board.slice();
@@ -208,49 +212,26 @@ class GameContainer extends Component {
             }
           }
 
-          switch(cell) {
-            case 0:
-              ctx.fillStyle = 'rgb(0, 0, 0)';
-              break;
-            case 1:
-              ctx.fillStyle = 'rgb(179, 209, 255)';
-              break;
-            case 2:
-              ctx.fillStyle = 'rgb(128,128,128)';
-              break;
-            case 3:
-              ctx.fillStyle = 'rgb(230, 230, 0)';
-              break;
-            case 4:
-              ctx.fillStyle = 'rgb(0, 153, 0)';
-              break;
-            case 5:
-              ctx.fillStyle = 'rgb(51, 102, 255)';
-              break;
-            case 10:
-            case 11:
-            case 12:
-            case 13:
-            case 14:
-              ctx.fillStyle = 'rgb(255, 153, 153)';
-              break;
-            case 15:
-            case 16:
-            case 17:
-            case 18:
-            case 19:
-              ctx.fillStyle = 'rgb(255, 77, 77)';
-              break;
-            case 20:
-            case 21:
-            case 22:
-            case 23:
-            case 24:
-              ctx.fillStyle = 'rgb(255, 0, 0)';
-              break;
-            case 7:
-              ctx.fillStyle = 'rgb(102, 0, 255)';
-              break;
+          if (cell === 0) {
+            ctx.fillStyle = 'rgb(0, 0, 0)';
+          } else if (cell === 1) {
+            ctx.fillStyle = 'rgb(179, 209, 255)';
+          } else if (cell === 2) {
+            ctx.fillStyle = 'rgb(128,128,128)';
+          } else if (cell === 3) {
+            ctx.fillStyle = 'rgb(230, 230, 0)';
+          } else if (cell === 4) {
+            ctx.fillStyle = 'rgb(0, 153, 0)';
+          } else if (cell === 5) {
+            ctx.fillStyle = 'rgb(51, 102, 255)';
+          } else if (cell === 7) {
+            ctx.fillStyle = 'rgb(102, 0, 255)';
+          } else if (cell >= 10 && cell < 15) {
+            ctx.fillStyle = 'rgb(255, 153, 153)';
+          } else if (cell >= 15 && cell < 20) {
+            ctx.fillStyle = 'rgb(255, 77, 77)';
+          } else if (cell >= 20 && cell < 25) {
+            ctx.fillStyle = 'rgb(255, 0, 0)';
           }
 
           ctx.fillRect(j*10, i*10, 10, 10);
